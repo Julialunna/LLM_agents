@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: deepinfra
+Version: 0.1.0
+Summary: Unofficial Python wrapper for the DeepInfra Inference API
+Home-page: https://github.com/ovuruska/deepinfra-python
+Author: Oguz Vuruskaner
+Author-email: oguzvuruskaner@gmaikl.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+
+# deepinfra
+
+`deepinfra` is a Python library designed to provide a simple interface for interacting with DeepInfra's Inference API, facilitating various AI and machine learning tasks.
+
+## Installation
+
+To install `deepinfra`, run the following command:
+
+```bash
+pip install deepinfra
