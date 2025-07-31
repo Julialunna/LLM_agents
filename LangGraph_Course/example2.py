@@ -48,6 +48,7 @@ graph = create_react_agent(
 
 export_graph = graph
 
+#creating graph representation
 png_bytes = export_graph.get_graph().draw_mermaid_png(
     draw_method= MermaidDrawMethod.API
 )

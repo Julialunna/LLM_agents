@@ -1,0 +1,10 @@
+GraphState → Representa os dados que circulam no grafo
+    Serve como entrada, saída e estrutura intermediária do grafo.
+StateGraph → É o grafo em si
+    É a estrutura de controle do fluxo de execução.
+
+    Permite adicionar nós (add_node), conexões (add_edge, set_entry_point, etc.) e compilar o grafo.
+
+    Recebe uma classe de estado (ex: GraphState) como tipo.
+
+Langsmith: controle dos agentes construídos
