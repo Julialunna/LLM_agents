@@ -8,3 +8,4 @@ StateGraph → É o grafo em si
     Recebe uma classe de estado (ex: GraphState) como tipo.
 
 Langsmith: controle dos agentes construídos
+Tavily: conecta agente a internet

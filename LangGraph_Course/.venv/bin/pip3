@@ -1,4 +1,4 @@
-#!/home/julialuna/LLM_agents/LangGraph_Course/.venv/bin/python3
+#!/home/julialuna/LLM_agents/LangGraph_Course/.venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -1,0 +1,6 @@
+{
+    "dependencies": ["."], 
+    "graphs":{
+        "agent": "sarcastic_agent:export_graph"
+    }
+}
