@@ -1,0 +1,1 @@
+foi feito parelização em que dois modelos trabalharão ao mesmo e uma mesma LLM vai avaliar qual foi melhor

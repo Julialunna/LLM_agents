@@ -1,0 +1,10 @@
+langgraph
+langchain-core
+langchain-google-genai
+pydantic
+starlette
+python-dotenv
+uvicorn
+google-ai-generativelanguage
+langgraph-cli
+langgraph-cli[inmem]
