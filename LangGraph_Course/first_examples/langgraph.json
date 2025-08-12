@@ -1,0 +1,7 @@
+{
+    "dependencies": ["."], 
+    "graphs":{
+        "agent": "sarcastic_agent:export_graph", 
+        "mcp": "example4:agent_mcp"
+    }
+}
