@@ -2,6 +2,7 @@ import json
 from typing import TypedDict, List, Dict, Any
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import HumanMessage, SystemMessage
+from models import models
 
 class NewsAgentState(TypedDict):
     original_news: str
@@ -58,23 +59,30 @@ def prepare_next_task_node(state: NewsAgentState) -> Dict[str, Any]:
     }    
     
 def summarizer_node(state: NewsAgentState) -> Dict[str, str]:
-    desc = state.get("current_task_description", "")
     news = state.get("original_news", "")
+    prompt = f"Resuma a seguinte notícia de forma clara, objetiva e em até 5 linhas:\n{news}"
+    try:
+        response=models["meta_llama_3"].invoke([HumanMessage(content = prompt)])
+        return {"specialist_result": response.content.strip()}
+    except Exception as e:
+        return {"specialist_result": f"Erro ao resumir: {e}"}
     
-    #just simple summary, could be done by a llm
-    if len(news) > 400:
-        resumo = news[:400] + "...(resumo truncado)"
-    else:
-        resumo = news
-    return {"specialist_result": f"Resumo: {resumo}"}
+  
 
 def analyst_node(state: NewsAgentState) -> Dict[str, str]:
     prev_results = state.get("intermediate_results", {})
     resumo = prev_results.get("summarize_news", "sem resumo")
-    #simple analysis
-    analise = f"Análise: Pontos importantes do resumo {resumo[:100]} ... (análise simplificada)"
-    analise +="\nPossíveis vieses: Não identificado (exemplo). \nImpacto: A notícia pode impactar a opinião pública."
-    return {"specialist_result": analise}
+    prompt = (
+        f"Analise o seguinte resumo de notícia, destacando pontos importantes, possíveis vieses e impacto social/político.\n"
+        f"Resumo: {resumo}"
+    )
+    
+    try:
+        response = models["meta_llama_3"].invoke([HumanMessage(content=prompt)])
+        return {"specialist_result": response.content.strip()}
+    except Exception as e:
+        return {"specialist_result": f"Erro na análise: {e}"}
+    
 
 def questioner_node(state:NewsAgentState) -> Dict[str, str]:
     prev_results = state.get("intermediate_results", {})

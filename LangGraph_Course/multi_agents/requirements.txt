@@ -1,10 +1,10 @@
-dotenv==0.9.9
+python-dotenv>=1.0.1
 firecrawl-py==2.7.0
 langchain==0.3.25
 langchain-community==0.3.24
 langchain-core==0.3.61
 langgraph==0.4.7
-langgraph-api==0.2.34
+langgraph-sdk>=0.2.0
 langgraph-cli==0.2.10
 sympy
 deepinfra
