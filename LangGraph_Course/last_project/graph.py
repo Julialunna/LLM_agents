@@ -57,12 +57,43 @@ def search_tavily(query:str):
         "queries_results": [query_results]
     }
 
+def researcher(state: ReportState):
+    #new function Send!
+    #it sends a task for another node immediately, it has the next node and its data 
+    return [Send("search_tavily", query) for query in state.queries]
 
-
-#edges
+def final_writer(state:ReportState):
+    search_results = ""
+    references = ""
+    
+    for i, result in enumerate(state.queries_results):
+        search_results+= f"[{i+1}]\n\n"
+        search_results += f"Title: {result.title}\n"
+        search_results += f"URL: {result.url}\n"
+        search_results += f"Content: {result.resume}\n"
+        search_results += f"=========================\n\n"
+        
+        references += f"[{i+1}] - [{result.title}]({result.url})\n"
+        
+        
+        prompt = building_final_response.format(user_input = user_input, search_results = search_results)
+        llm_result = reasoning_llm.invoke(prompt)
+        final_response= llm_result.content + "\n\nReferences: \n" + references
+        return {"final_response": final_response}
 
 #graph
 builder = StateGraph(ReportState)
+builder.add_node("build_first_queries", build_first_queries)
+builder.add_node("search_tavily", search_tavily)
+builder.add_node("final_writer", final_writer)
+
+builder.add_edge(START, "build_first_queries")
+builder.add_conditional_edges("build_first_queries",
+                              researcher,
+                              ["search_tavily"])
+builder.add_edge("search_tavily", "final_writer")
+builder.add_edge("final_writer", END)
+
 graph = builder.compile()
 
 #execution
